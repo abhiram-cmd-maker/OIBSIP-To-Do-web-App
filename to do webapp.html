@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List Web App</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg,#0f2c4c,#0a6c8c);
+    height:100vh;
+}
+
+header{
+    background:#eee;
+    padding:15px;
+    font-size:24px;
+}
+
+.container{
+    display:flex;
+    gap:50px;
+    padding:40px;
+}
+
+.form-box{
+    background:white;
+    padding:25px;
+    width:300px;
+    border-radius:6px;
+}
+
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+textarea{
+    height:150px;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    border:none;
+    background:#2fa44f;
+    color:white;
+    font-size:16px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#22863a;
+}
+
+.task-section{
+    flex:1;
+    color:white;
+}
+
+.task-header{
+    display:flex;
+    justify-content:space-between;
+    padding:0 20px;
+    margin-bottom:10px;
+}
+
+.task{
+    background:#eee;
+    color:#333;
+    padding:20px;
+    margin-bottom:20px;
+    border-radius:6px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.task-title{
+    width:25%;
+}
+
+.task-desc{
+    width:40%;
+}
+
+.delete-btn{
+    background:#e74c3c;
+    border:none;
+    color:white;
+    padding:1px 4px;
+    border-radius:1px;
+    cursor:pointer;
+}
+</style>
+
+</head>
+<body>
+
+<header>To-Do List Web App</header>
+
+<div class="container">
+
+<div class="form-box">
+<form id="todoForm">
+<input type="text" id="title" placeholder="Title" required>
+<textarea id="description" placeholder="Description" required></textarea>
+<button type="submit">Save</button>
+</form>
+</div>
+
+<div class="task-section">
+
+<div class="task-header">
+<h3>Title</h3>
+<h3>Description</h3>
+<h3>Delete</h3>
+</div>
+
+<div id="taskList"></div>
+
+</div>
+</div>
+
+<script>
+
+const form = document.getElementById("todoForm");
+const taskList = document.getElementById("taskList");
+
+form.addEventListener("submit", function(e){
+    e.preventDefault();
+
+    const title = document.getElementById("title").value;
+    const desc = document.getElementById("description").value;
+
+    const task = document.createElement("div");
+    task.className="task";
+
+    task.innerHTML = `
+        <div class="task-title">${title}</div>
+        <div class="task-desc">${desc}</div>
+        <button class="delete-btn">X</button>
+    `;
+
+    task.querySelector(".delete-btn").onclick = () => task.remove();
+
+    taskList.appendChild(task);
+
+    form.reset();
+});
+
+</script>
+
+</body>
+</html>
+
